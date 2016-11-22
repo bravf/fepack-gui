@@ -1,0 +1,70 @@
+html,body{
+    height: 100%;
+    font-family: 'Monaco';
+}
+.left-box li{
+    font-size: 12px;
+}
+.left-box p{
+    font-size: 10px;
+}
+
+.show{
+    display: block;
+}
+.hide{
+    display: none;
+}
+.msg{
+    font-size: 10px;
+    height: 210px;
+}
+.errmsg{
+    color: red;
+}
+
+.panel-head{
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.panel-body{
+    padding: 10px;
+}
+
+
+.list-group-item{
+    position: relative;
+}
+.list-group-item .icon{
+    position: absolute;
+    top: 10px;
+}
+.icon-red{
+    display: none;
+    right: 35px;
+}
+.icon-blue{
+    right: 20px;
+}
+.icon-green{
+    right: 5px;
+}
+
+.logs{
+    border: 1px solid #ddd;
+    height: 210px;
+    overflow: auto;
+    font-size: 10px;
+}
+.log span{
+    line-height:20px;
+    margin: 4px;
+    padding: 4px;
+    background-color:  #78DDF8;
+    border-radius: 10px;
+    display: inline-block;
+}
+.errlog span{
+    background-color: #f0dddd;
+}

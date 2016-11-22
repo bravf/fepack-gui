@@ -1,0 +1,14 @@
+{
+  "name": "fepack-gui",
+  "version": "0.0.1",
+  "description": "fepack-gui",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "https://github.com/fepack-gui",
+  "dependencies": {
+    "electron": "^1.4.7",
+    "fepack": "^2.0.4"
+  }
+}

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>美利前端构建工具（Fepack Destop）</title>
+        <link href="photon/css/photon.min.css" rel="stylesheet"/>
+        <link href="index.css" rel="stylesheet"/>
+        <script src="vue-2.0.5.js"></script>
+    </head>
+    <body>
+
+        <div class="window" id="app">
+            <div class="window-content">
+
+                <div class="pane pane-sm sidebar left-box" style="max-width:300px;">
+                    <ul class="list-group">
+                        <li class="list-group-header">
+                            <div class="btn-group">
+                                <button class="btn btn-large btn-default" v-on:click="addProject">
+                                    <span class="icon icon-plus-circled"></span>
+                                </button>
+                                <button class="btn btn-large btn-default" v-on:click="removeProject">
+                                    <span class="icon icon-minus-circled" style="color:red"></span>
+                                </button>
+                                <button class="btn btn-large btn-default" v-on:click="clearCache">
+                                    清除缓存
+                                </button>
+                            </div>
+                        </li>
+                        
+                        <li 
+                            class="list-group-item"
+                            v-bind:class="{active:(project==currProject)}"
+                            v-on:click="setCurrProject(project)"
+                            v-for="project in projects">
+
+                            <span 
+                                class="icon icon-folder" >
+                            </span>
+
+                            <div class="media-body" style="margin-left:20px;">
+                                <strong>
+                                    {{project.name}}
+                                </strong>
+                                <p>
+                                    {{project.path}}
+                                </p>
+                            </div>
+                            
+                            <span 
+                                class="icon icon-record icon-red" 
+                                style="color:#fc605b">
+                            </span>
+                            <span 
+                                class="icon icon-record icon-blue" 
+                                style="color:#57acf5"
+                                v-show="project.serverExecObj">
+                            </span>
+                            <span 
+                                class="icon icon-record icon-green" 
+                                style="color:#34c84a"
+                                v-show="project.execObj">
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="pane right-box">
+                    <div 
+                        class="panel panel-default"
+                        v-for="project in projects"
+                        v-bind:class="[project==currProject ? 'show' : 'hide']">
+                        <div class="panel-head">
+                            
+                            <div class="btn-group">
+                                <button 
+                                type="button" 
+                                class="btn btn-default btn-large" 
+                                v-bind:class="{'btn-positive': (project.execObj && project.currEnv==env) }"
+                                v-on:click="runProject(project, env)"
+                                v-for="env in envs">
+                                    <template v-if="env=='dev'">构建开发环境</template>
+                                    <template v-if="env=='qa'">发布测试</template>
+                                    <template v-if="env=='www'">发布线上</template>
+                                 </button>
+                            </div>
+                            
+                            <button
+                                type="button"
+                                class="btn btn-default btn-large"
+                                v-bind:class="{'btn-primary':project.serverExecObj}"
+                                v-on:click="runServer(project)">
+                                启动服务器
+                            </button>
+                        </div>
+                        <div class="panel-body" v-bind:id="project.gid + '_console'">
+                            <form>
+
+                            <div class="form-group">
+                                <label>Default Logs</label>
+                                <div class="logs msg">
+                                    <div class="log" v-for="msg in project.logmsg">
+                                        <span>{{msg}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Error Logs</label>
+                                <div class="logs errmsg">
+                                    <div class="log errlog" v-for="msg in project.errmsg">
+                                        <span>{{msg}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--<div class="form-group">
+                                <label>Default Logs</label>
+                                <textarea class="form-control msg" rows="3" readonly>{{project.logmsg.join('\n')}}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Error Logs</label>
+                                <textarea class="form-control msg errmsg" rows="3" readonly>{{project.errmsg.join('\n')}}</textarea>
+                            </div>-->
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+
+    <script>
+        // You can also require other files to run in this process
+        // require('./renderer.js')
+        require('./index.js') 
+    </script>
+</html>
